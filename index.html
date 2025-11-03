@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertitore Vitamina D3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 0.95em;
+        }
+
+        .converter-section {
+            background: #f8f9ff;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 2px solid #e8ebff;
+            transition: all 0.3s ease;
+        }
+
+        .converter-section:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 1.5em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 1.1em;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .result-highlight {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin: 0 5px;
+        }
+
+        .dosing-guide {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .dosing-guide h3 {
+            color: #f57c00;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .dosing-guide ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dosing-guide li {
+            padding: 8px 0;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .dosing-guide li:before {
+            content: "💊 ";
+            margin-right: 8px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.1em;
+            }
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: #e8ebff;
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💊 Convertitore Vitamina D3</h1>
+        <p class="subtitle">Conversione tra gocce e preparazioni fisse</p>
+        <p class="subtitle"> Dott. Gianmario Corbani - uso personale </p>
+
+        <!-- Da Gocce a UI -->
+        <div class="converter-section">
+            <h2 class="section-title">
+                <span class="icon">💧</span>
+                Da Gocce a Unità Internazionali
+                <span class="info-badge">250 UI/goccia</span>
+            </h2>
+            <div class="input-group">
+                <label for="drops-input">Numero di gocce:</label>
+                <input type="number" id="drops-input" min="0" step="1" placeholder="Es: 4" value="">
+            </div>
+            <div class="result-box" id="drops-result">
+                Inserisci il numero di gocce
+            </div>
+        </div>
+
+        <!-- Da UI a Gocce -->
+        <div class="converter-section">
+            <h2 class="section-title">
+                <span class="icon">📊</span>
+                Da Unità Internazionali a Gocce
+            </h2>
+            <div class="input-group">
+                <label for="ui-input">Unità Internazionali (UI):</label>
+                <input type="number" id="ui-input" min="0" step="250" placeholder="Es: 25000" value="">
+            </div>
+            <div class="result-box" id="ui-result">
+                Inserisci le UI desiderate
+            </div>
+        </div>
+
+        <!-- Da Dose Mensile a Gocce Giornaliere -->
+        <div class="converter-section">
+            <h2 class="section-title">
+                <span class="icon">📅</span>
+                Da Dose Mensile a Gocce Giornaliere
+            </h2>
+            <div class="input-group">
+                <label for="monthly-input">Dose mensile (UI):</label>
+                <input type="number" id="monthly-input" min="0" step="1000" placeholder="Es: 50000" value="">
+            </div>
+            <div class="result-box" id="monthly-result">
+                Inserisci la dose mensile in UI
+            </div>
+        </div>
+
+        <!-- Da Gocce Settimanali a Dose Mensile -->
+        <div class="converter-section">
+            <h2 class="section-title">
+                <span class="icon">📆</span>
+                Da Gocce Settimanali a Dose Mensile
+            </h2>
+            <div class="input-group">
+                <label for="weekly-drops-input">Numero di gocce a settimana:</label>
+                <input type="number" id="weekly-drops-input" min="0" step="1" placeholder="Es: 28" value="">
+            </div>
+            <div class="result-box" id="weekly-drops-result">
+                Inserisci il numero di gocce settimanali
+            </div>
+        </div>
+
+        <!-- Conversioni Rapide -->
+        <div class="converter-section">
+            <h2 class="section-title">
+                <span class="icon">⚡</span>
+                Conversioni Rapide
+            </h2>
+            <div class="grid-2">
+                <div>
+                    <label>Preparazione da 25.000 UI:</label>
+                    <div class="result-box" style="background: #4caf50;">
+                        <span class="result-highlight">100</span> gocce
+                    </div>
+                </div>
+                <div>
+                    <label>Preparazione da 50.000 UI:</label>
+                    <div class="result-box" style="background: #ff9800;">
+                        <span class="result-highlight">200</span> gocce
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guida Dosaggi -->
+        <div class="dosing-guide">
+            <h3>📋 Riferimenti Rapidi</h3>
+            <ul>
+                <li><strong>1 goccia</strong> = 250 UI (7.500 UI al mese)</li>
+                <li><strong>4 gocce</strong> = 1.000 UI (dose giornaliera comune - 30.000 UI al mese)</li>
+                <li><strong>20 gocce</strong> = 5.000 UI</li>
+                <li><strong>40 gocce</strong> = 10.000 UI</li>
+                <li><strong>100 gocce</strong> = 25.000 UI (1 fiala)</li>
+                <li><strong>200 gocce</strong> = 50.000 UI (1 fiala)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Conversione da gocce a UI
+        const dropsInput = document.getElementById('drops-input');
+        const dropsResult = document.getElementById('drops-result');
+
+        dropsInput.addEventListener('input', function() {
+            const drops = parseFloat(this.value);
+            
+            if (isNaN(drops) || drops < 0) {
+                dropsResult.textContent = 'Inserisci un numero valido di gocce';
+                return;
+            }
+
+            if (drops === 0) {
+                dropsResult.textContent = '0 gocce = 0 UI';
+                return;
+            }
+
+            const ui = drops * 250;
+            const monthlyUI = ui * 30;
+            const formattedUI = ui.toLocaleString('it-IT');
+            const formattedMonthlyUI = monthlyUI.toLocaleString('it-IT');
+            
+            let equivalence = '';
+            if (ui === 25000) {
+                equivalence = ' = 1 fiala da 25.000 UI';
+            } else if (ui === 50000) {
+                equivalence = ' = 1 fiala da 50.000 UI';
+            } else if (ui % 25000 === 0) {
+                equivalence = ` = ${ui / 25000} fiale da 25.000 UI`;
+            } else if (ui % 50000 === 0) {
+                equivalence = ` = ${ui / 50000} fiale da 50.000 UI`;
+            }
+
+            dropsResult.innerHTML = `<span class="result-highlight">${drops}</span> ${drops === 1 ? 'goccia' : 'gocce'} = <span class="result-highlight">${formattedUI}</span> UI (${formattedMonthlyUI} UI al mese)${equivalence}`;
+        });
+
+        // Conversione da UI a gocce
+        const uiInput = document.getElementById('ui-input');
+        const uiResult = document.getElementById('ui-result');
+
+        uiInput.addEventListener('input', function() {
+            const ui = parseFloat(this.value);
+            
+            if (isNaN(ui) || ui < 0) {
+                uiResult.textContent = 'Inserisci un numero valido di UI';
+                return;
+            }
+
+            if (ui === 0) {
+                uiResult.textContent = '0 UI = 0 gocce';
+                return;
+            }
+
+            const drops = ui / 250;
+            const isExact = drops % 1 === 0;
+            
+            const formattedUI = ui.toLocaleString('it-IT');
+            
+            if (isExact) {
+                uiResult.innerHTML = `<span class="result-highlight">${formattedUI}</span> UI = <span class="result-highlight">${drops}</span> ${drops === 1 ? 'goccia' : 'gocce'}`;
+            } else {
+                const roundedDrops = Math.round(drops * 10) / 10;
+                uiResult.innerHTML = `<span class="result-highlight">${formattedUI}</span> UI = <span class="result-highlight">${roundedDrops}</span> gocce (circa)`;
+            }
+        });
+
+        // Conversione da dose mensile a gocce giornaliere
+        const monthlyInput = document.getElementById('monthly-input');
+        const monthlyResult = document.getElementById('monthly-result');
+
+        monthlyInput.addEventListener('input', function() {
+            const monthlyUI = parseFloat(this.value);
+            
+            if (isNaN(monthlyUI) || monthlyUI < 0) {
+                monthlyResult.textContent = 'Inserisci un numero valido di UI mensili';
+                return;
+            }
+
+            if (monthlyUI === 0) {
+                monthlyResult.textContent = '0 UI al mese = 0 gocce al giorno';
+                return;
+            }
+
+            // Calcolo dose giornaliera
+            const dailyUI = monthlyUI / 30;
+            const exactDailyDrops = dailyUI / 250;
+            const dailyDrops = Math.round(exactDailyDrops);
+            
+            // Calcolo dose settimanale
+            const weeklyDrops = dailyDrops * 7;
+            
+            // Verifica dose mensile effettiva con gocce arrotondate
+            const actualMonthlyUI = dailyDrops * 250 * 30;
+            const difference = actualMonthlyUI - monthlyUI;
+            const percentDiff = Math.abs((difference / monthlyUI) * 100);
+            
+            const formattedMonthlyUI = monthlyUI.toLocaleString('it-IT');
+            const formattedActualUI = actualMonthlyUI.toLocaleString('it-IT');
+            
+            let resultHTML = `<span class="result-highlight">${formattedMonthlyUI}</span> UI/mese = <span class="result-highlight">${dailyDrops}</span> ${dailyDrops === 1 ? 'goccia' : 'gocce'} al giorno<br><small style="font-size: 0.9em; opacity: 0.95;">(${weeklyDrops} ${weeklyDrops === 1 ? 'goccia' : 'gocce'} a settimana)</small>`;
+            
+            // Mostra la dose mensile effettiva se diversa
+            if (dailyDrops !== exactDailyDrops) {
+                resultHTML += `<br><small style="font-size: 0.85em; opacity: 0.9;">(dose effettiva: ${formattedActualUI} UI/mese`;
+                if (percentDiff > 1) {
+                    resultHTML += difference > 0 ? ` +${Math.round(difference)} UI` : ` ${Math.round(difference)} UI`;
+                }
+                resultHTML += `)</small>`;
+            }
+            
+            monthlyResult.innerHTML = resultHTML;
+        });
+
+        // Conversione da gocce settimanali a dose mensile
+        const weeklyDropsInput = document.getElementById('weekly-drops-input');
+        const weeklyDropsResult = document.getElementById('weekly-drops-result');
+
+        weeklyDropsInput.addEventListener('input', function() {
+            const weeklyDrops = parseFloat(this.value);
+            
+            if (isNaN(weeklyDrops) || weeklyDrops < 0) {
+                weeklyDropsResult.textContent = 'Inserisci un numero valido di gocce settimanali';
+                return;
+            }
+
+            if (weeklyDrops === 0) {
+                weeklyDropsResult.textContent = '0 gocce a settimana = 0 UI al mese';
+                return;
+            }
+
+            // Calcolo UI settimanali
+            const weeklyUI = weeklyDrops * 250;
+            
+            // Calcolo UI mensili (approssimando 4.3 settimane al mese = 30/7)
+            const monthlyUI = Math.round(weeklyUI * 30 / 7);
+            
+            // Calcolo gocce giornaliere equivalenti
+            const dailyDrops = (weeklyDrops / 7).toFixed(1);
+            
+            const formattedWeeklyUI = weeklyUI.toLocaleString('it-IT');
+            const formattedMonthlyUI = monthlyUI.toLocaleString('it-IT');
+            
+            let resultHTML = `<span class="result-highlight">${weeklyDrops}</span> ${weeklyDrops === 1 ? 'goccia' : 'gocce'}/settimana = <span class="result-highlight">${formattedWeeklyUI}</span> UI/settimana<br><small style="font-size: 0.9em; opacity: 0.95;">(circa ${formattedMonthlyUI} UI al mese)</small>`;
+            
+            // Mostra equivalenza giornaliera se utile
+            if (weeklyDrops % 7 !== 0) {
+                resultHTML += `<br><small style="font-size: 0.85em; opacity: 0.9;">(equivalente a ${dailyDrops} gocce al giorno)</small>`;
+            }
+            
+            weeklyDropsResult.innerHTML = resultHTML;
+        });
+    </script>
+</body>
+</html>
